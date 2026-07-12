@@ -1,13 +1,14 @@
 # platformify.js
 
 A lightweight, comprehensive, zero-dependency browser and hardware profiling library made in pure vanilla JavaScript
+|---|
 
 # Importing platformify.js
 
 Raw script link:
 
 ```
-https://raw.githubusercontent.com/
+https://raw.githubusercontent.com/BlazeInferno64/platformify.js/refs/heads/main/platformify.js
 ```
 
 Alternatively you may also,
@@ -15,7 +16,7 @@ Alternatively you may also,
 Load directly using the script tag of html:
 
 ```html
-<script src=""></script>
+<script src="https://raw.githubusercontent.com/BlazeInferno64/platformify.js/refs/heads/main/platformify.js"></script>
 ```
 
 
