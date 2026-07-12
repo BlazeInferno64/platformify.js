@@ -8,7 +8,7 @@ A lightweight, comprehensive, zero-dependency browser and hardware profiling lib
 Raw script link:
 
 ```
-https://raw.githubusercontent.com/BlazeInferno64/platformify.js/refs/heads/main/platformify.js
+https://cdn.jsdelivr.net/gh/BlazeInferno64/platformify.js@main/platformify.js
 ```
 
 Alternatively you may also,
@@ -16,7 +16,7 @@ Alternatively you may also,
 Load directly using the script tag of html:
 
 ```html
-<script src="https://raw.githubusercontent.com/BlazeInferno64/platformify.js/refs/heads/main/platformify.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/BlazeInferno64/platformify.js@main/platformify.js"></script>
 ```
 
 
