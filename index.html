@@ -197,7 +197,7 @@
             <pre><code id="json-output" class="language-json"></code></pre>
         </section>
 
-        <p class="note">Tip: Reload if the payload changes while the page stays open. Use copy to paste the JSON into your editor, docs, API tests or edit it live in Jolt!</p>
+        <p class="note">Tip: Reload if the payload changes while the page stays open. Use copy to paste the JSON into your editor, docs, API tests or edit it live in <a href="https://blazeinferno64.github.io/jolt.html?code=%2F%2F%20This%20code%20snippet%20is%20generated%20by%20platformify.js%0Atry%20%7B%0A%20%20%20%20const%20platformify%20%3D%20new%20Platformify()%3B%0A%20%20%20%20const%20payload%20%3D%20await%20platformify.getSystemInfo()%3B%0A%20%20%20%20%0A%20%20%20%20console.log(payload)%3B%20%2F%2F%20Log%20the%20payload%20to%20the%20console%20for%20inspection%0A%7D%20catch%20(error)%20%7B%0A%20%20%20%20console.error(error)%3B%20%2F%2F%20Log%20any%20errors%20that%20occur%20during%20the%20process%0A%7D&run=true">Jolt</a>!</p>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -235,16 +235,48 @@ try {
             }
         }
 
-        function copyPayload() {
+        async function copyPayload() {
             const text = document.getElementById('json-output').textContent;
+            const copyButton = document.getElementById('copy-btn');
+            const originalText = copyButton.textContent;
             if (!text) return;
-            navigator.clipboard.writeText(text).then(() => {
-                const copyButton = document.getElementById('copy-btn');
-                const originalText = copyButton.textContent;
+
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const tempTextArea = document.createElement('textarea');
+                    tempTextArea.value = text;
+                    tempTextArea.setAttribute('readonly', '');
+                    tempTextArea.style.position = 'fixed';
+                    tempTextArea.style.left = '-9999px';
+                    document.body.appendChild(tempTextArea);
+                    tempTextArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempTextArea);
+                }
+
                 copyButton.textContent = 'Copied!';
                 setTimeout(() => copyButton.textContent = originalText, 1400);
-            });
+            } catch (error) {
+                console.error('Copy failed:', error);
+                copyButton.textContent = 'Copy failed';
+                setTimeout(() => copyButton.textContent = originalText, 1400);
+            }
         }
+
+        const refreshButton = document.getElementById('refresh-btn');
+
+        document.getElementById('copy-btn').addEventListener('click', copyPayload);
+        refreshButton.addEventListener('click', (e) => {
+            refreshButton.textContent = 'Reloading...';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                refreshButton.textContent = 'Reload';
+                alert(`Payload reloaded! You can now copy the updated JSON or open it in Jolt for further inspection.`);
+            }, 1400);
+            loadPayload();
+        });
 
         const script = document.createElement('script');
         script.src = 'platformify.js?v=' + Date.now();
